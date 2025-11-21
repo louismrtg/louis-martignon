@@ -12,13 +12,15 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Orbitron:wght@600&display=swap" as="style" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Orbitron:wght@600&display=swap" />
 
+    <link rel="stylesheet" href="style.css" />
+
     <style>
-        /* CSS INLINE - pour un chargement critique rapide (FOUC) - le reste serait dans un fichier style.css */
+        /* CSS INLINE CRITIQUE - Pour un chargement initial ultra-rapide (FOUC) */
         :root {
             --color-bg-dark: #08001a;
             --color-bg-light: #150533;
-            --color-primary: #7d26cd; /* Violet profond/Cyber */
-            --color-secondary: #00ffc8; /* Cyan Néon */
+            --color-primary: #7d26cd;
+            --color-secondary: #00ffc8;
             --color-text-light: rgba(255, 255, 255, 0.95);
             --color-text-muted: rgba(255, 255, 255, 0.5);
             --glass-blur: blur(12px);
@@ -29,7 +31,7 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
-            font-family: 'IBM Plex Mono', monospace; /* Police technique/code */
+            font-family: 'IBM Plex Mono', monospace;
             background: var(--color-bg-dark);
             color: var(--color-text-light);
             min-height: 100vh;
@@ -44,7 +46,8 @@
             flex: 1;
             padding: 80px 40px;
             display: grid;
-            place-items: center; /* Centre verticalement et horizontalement */
+            place-items: center;
+            width: 100%; /* Ajout pour la mise en page */
         }
     </style>
 </head>
@@ -78,18 +81,20 @@
             </div>
         </div>
     </section>
-    </main>
+</main>
 
 <footer class="footer">
-    <p>© 2025 Louis Martignon | Accès <a href="#" aria-label="Lien vers le challenge CTF">CTF_Challenge</a></p>
+    <p>© <span id="year">2025</span> Louis Martignon | Accès <a href="#" aria-label="Lien vers le challenge CTF">CTF_Challenge</a></p>
     <div class="social-links">
-        <a href="#" aria-label="Mon profil GitHub" class="social-icon">💾</a>
-        <a href="#" aria-label="Mon profil LinkedIn" class="social-icon">🔗</a>
+        <a href="https://github.com/votreprofil" target="_blank" aria-label="Mon profil GitHub" class="social-icon">💾</a>
+        <a href="https://linkedin.com/in/votreprofil" target="_blank" aria-label="Mon profil LinkedIn" class="social-icon">🔗</a>
     </div>
 </footer>
 
 <script>
-    // JavaScript pour l'effet Terminal (clignotement du curseur) et les animations
+    // Ajout de l'année dynamique
+    document.getElementById('year').textContent = new Date().getFullYear();
+
     document.addEventListener('DOMContentLoaded', () => {
         const title = document.querySelector('.main-title');
         const blinkElement = document.querySelector('.blink');
@@ -109,16 +114,23 @@
         let i = 0;
         function typeWriter() {
             if (i < text.length) {
-                title.textContent += text.charAt(i);
-                title.appendChild(cursor); // Remet le curseur
+                // S'assure de ne pas écraser le curseur si le caractère est déjà affiché
+                if (!title.textContent.endsWith(text.charAt(i))) {
+                    title.textContent += text.charAt(i);
+                }
+                title.appendChild(cursor); // Remet le curseur après le texte tapé
                 i++;
                 setTimeout(typeWriter, 100); // Vitesse de frappe
+            } else {
+                // Une fois terminé, on retire l'animation de bordure pour l'effet "tapé"
+                 title.style.borderRight = 'none';
             }
         }
-        // Démarre après le message d'initialisation
+        
+        // Lance l'animation après un petit délai
         setTimeout(typeWriter, 1500);
 
-        // Ajout d'une classe pour les animations d'entrée après le chargement
+        // Ajout d'une classe pour les animations d'entrée de la section
         setTimeout(() => {
             document.querySelector('.hero-section').classList.add('is-loaded');
         }, 100);
