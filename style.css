@@ -1,3 +1,5 @@
+/* Fichier: style.css */
+
 /* --- LAYOUT & NAVIGATION --- */
 .header {
     width: 100%;
@@ -22,7 +24,7 @@
 }
 
 .logo {
-    font-family: 'Orbitron', sans-serif; /* Police /titre */
+    font-family: 'Orbitron', sans-serif;
     font-size: 28px;
     font-weight: 600;
     color: var(--color-secondary);
@@ -73,6 +75,7 @@
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    width: 100%;
 }
 
 .hero-section.is-loaded {
@@ -103,10 +106,11 @@
     font-size: 64px;
     color: var(--color-text-light);
     margin-bottom: 10px;
-    overflow: hidden; /* Nécessaire effet d'écriture */
+    overflow: hidden; 
     white-space: nowrap; 
-    border-right: 3px solid var(--color-secondary);
+    border-right: 3px solid var(--color-secondary); /* Effet curseur clignotant */
     padding-right: 5px;
+    height: 70px; /* Assure que la ligne est stable pendant l'animation */
 }
 
 .blink {
@@ -187,6 +191,7 @@
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     font-size: 14px;
     color: var(--color-text-muted);
+    width: 100%;
 }
 
 .footer a {
@@ -207,6 +212,7 @@
 
 .social-icon:hover {
     transform: translateY(-2px) scale(1.1);
+    color: var(--color-primary);
 }
 
 /* --- ANIMATIONS GLOBALES --- */
@@ -215,14 +221,17 @@
     50% { opacity: 0.5; }
 }
 
-/* RESPONSIVE DESIGN pour les téléphones (Mobile First) */
+/* RESPONSIVE DESIGN (Mobile First) */
 @media (max-width: 768px) {
+    main { padding: 60px 20px; }
     .nav { padding: 10px 20px; }
-    .nav-links { display: none; /* Simplification pour la démo */ }
-    .glass-card { padding: 40px 30px; }
-    .main-title { font-size: 40px; }
-    .subtitle { font-size: 18px; }
-    .description { font-size: 16px; }
+    /* Masquer les liens nav sur mobile pour une approche simplifiée, souvent remplacé par un menu hamburger */
+    .nav-links { display: none; } 
+    .glass-card { padding: 40px 20px; }
+    .main-title { font-size: 36px; height: 45px; }
+    .subtitle { font-size: 16px; }
+    .description { font-size: 14px; margin-bottom: 25px; }
     .action-buttons { flex-direction: column; gap: 10px; }
+    .btn { width: 100%; padding: 12px; }
     .footer { flex-direction: column; gap: 10px; text-align: center; }
 }
